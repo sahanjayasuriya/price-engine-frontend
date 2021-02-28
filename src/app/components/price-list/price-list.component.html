@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-form-field>
+    <mat-label>Select a Product</mat-label>
+    <mat-select [(value)]="selectedProductId" (selectionChange)="loadProductPrices()">
+      <mat-option *ngFor="let product of products" value="{{ product.id }}">{{ product.productName }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="selectedProduct != null">
+    <mat-card>
+      <h1>Product Details</h1>
+      <table>
+        <tr>
+          <td>Product Name</td>
+          <td>
+            {{ selectedProduct.productName }}
+          </td>
+        </tr>
+        <tr>
+          <td>Price per Carton</td>
+          <td>{{ selectedProduct.price | currency: 'LKR'}}</td>
+        </tr>
+        <tr>
+          <td>Units per Carton</td>
+          <td>{{ selectedProduct.units }}</td>
+        </tr>
+        <tr>
+          <td>
+            <mat-chip-list>
+              <mat-chip color="accent" *ngIf="selectedProduct.label == 'RARE'"
+                        selected>{{ selectedProduct.label }}</mat-chip>
+            </mat-chip-list>
+          </td>
+        </tr>
+      </table>
+    </mat-card>
+    <br/>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="units">
+        <th mat-header-cell *matHeaderCellDef> Quantity</th>
+        <td mat-cell *matCellDef="let productPrice"> {{productPrice.units}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price</th>
+        <td mat-cell *matCellDef="let productPrice"> {{productPrice.price | currency: 'LKR'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+</mat-card>
