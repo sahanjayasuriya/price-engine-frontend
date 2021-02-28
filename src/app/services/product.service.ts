@@ -3,8 +3,9 @@ import {BaseService} from './base.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
+import {Product} from '../models/product';
 
-const PRODUCTS_URL = '/product';
+const PRODUCTS_URL = '/products';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ProductService extends BaseService {
     super(httpClient);
   }
 
-  getProducts(): Observable<any> {
+  getProducts(): Observable<Product[]> {
     return this.get(environment.apiUrl + PRODUCTS_URL);
   }
 

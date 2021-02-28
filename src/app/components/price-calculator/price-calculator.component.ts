@@ -48,8 +48,8 @@ export class PriceCalculatorComponent implements OnInit {
     const cartons: number = this.formCalculate.controls.cartons.value;
     const units: number = this.formCalculate.controls.units.value;
     const quantity = cartons * this.products.find(product => product.id === productId).units + units;
-    this.productPriceService.getProductPrice(productId, quantity).subscribe(price => {
-      this.openPriceDialog(price, this.products.find(product => product.id === productId).productName, cartons, units);
+    this.productPriceService.getProductPrice(productId, quantity).subscribe(result => {
+      this.openPriceDialog(result.price, result.productName, cartons, units);
     }, error => {
       this.snackBar.open('Error occurred (' + error.message + ')');
     });
