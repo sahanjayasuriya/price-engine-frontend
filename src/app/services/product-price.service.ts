@@ -6,6 +6,7 @@ import {BaseService} from './base.service';
 import {ProductPrice} from '../models/ProductPrice';
 
 const PRODUCT_PRICE_URL = '/products/price';
+const PRODUCT_PRICE_LIST_URL = '/products/price/list';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ProductPriceService extends BaseService {
   }
 
   getProductPrices(productId: number): Observable<ProductPrice[]> {
-    return this.get(environment.apiUrl + PRODUCT_PRICE_URL + '?productId=' + productId);
+    return this.get(environment.apiUrl + PRODUCT_PRICE_LIST_URL + '?productId=' + productId);
   }
 
   getProductPrice(productId: number, quantity: number): Observable<ProductPrice> {
